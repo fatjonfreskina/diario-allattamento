@@ -18,7 +18,7 @@ async def log_breastfeeding(data: BreastfeedingSessionCreate, db: Session = Depe
     # Insert the breastfeeding data into the database
     session = BreastfeedingSession(
         UserID=user_id,
-        Timestamp=data.Timestamp or datetime.utcnow(),
+        Timestamp=data.Timestamp,
         Breast=data.Breast
     )
     
@@ -29,7 +29,7 @@ async def log_breastfeeding(data: BreastfeedingSessionCreate, db: Session = Depe
     return JSONResponse(content={
         "UserID": user_id,
         "Breast": session.Breast,
-        "Timestamp": session.Timestamp
+        "Timestamp": session.Timestamp.isoformat()
     })
 
 @app.get("/alexa/last_feeding", response_model=BreastfeedingSessionResponse)
