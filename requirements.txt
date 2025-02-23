@@ -1,6 +1,11 @@
-fastapi 
+fastapi
+fastapi[standard]
 uvicorn 
 sqlalchemy 
-mysqlclient 
+pymysql
+alembic
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
 pydantic
 python-dotenv
