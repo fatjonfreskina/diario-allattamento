@@ -7,9 +7,5 @@ class BreastfeedingSession(Base):
 
     SessionID = Column(Integer, primary_key=True, index=True)
     UserID = Column(String(255), index=True)
-    Timestamp = Column(DateTime, default=datetime.utcnow)
+    Timestamp = Column(DateTime)
     Breast = Column(String(10))
-
-# Make sure to run this to create the table
-# from database import engine
-# Base.metadata.create_all(bind=engine)
