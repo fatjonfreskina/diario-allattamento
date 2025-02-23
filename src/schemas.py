@@ -4,10 +4,10 @@ from typing import Optional
 
 class BreastfeedingSessionCreate(BaseModel):
     Breast: str
-    Timestamp: Optional[datetime]
+    Timestamp: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class BreastfeedingSessionResponse(BaseModel):
     UserID: str
@@ -15,4 +15,4 @@ class BreastfeedingSessionResponse(BaseModel):
     Timestamp: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
