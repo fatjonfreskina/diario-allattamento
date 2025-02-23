@@ -1,0 +1,12 @@
+# Migration workflow
+
+1. Setup the environment with:
+set DB_USER=
+set DB_PASS=
+set DB_NAME=
+set HOST_NAME=
+set HOST_PORT=
+
+2. Run `alembic revision -m "revision_message"`
+3. Edit the migration script
+4. Run `alembic upgrade head`
