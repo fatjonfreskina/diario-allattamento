@@ -7,17 +7,20 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
-# Access environment variables
-DB_HOST = os.getenv("DB_HOST")
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
-DB_NAME = os.getenv("DB_NAME")
+DB_USER=os.getenv("DB_USER")
+DB_PASSWORD=os.getenv("DB_PASSWORD")
+DB_NAME=os.getenv("DB_NAME")
+DB_HOST_NAME=os.getenv("DB_HOST_NAME")
+DB_PORT=os.getenv("DB_PORT")
 
-# Create the database URL using environment variables
-SQLALCHEMY_DATABASE_URL = f"mysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
+# Create DB URL
+DB_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST_NAME}:{DB_PORT}/{DB_NAME}"
+
+# Access environment variables
+DB_URL=os.getenv("DB_URL")
 
 # Create SQLAlchemy engine and session
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+engine = create_engine(DB_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
