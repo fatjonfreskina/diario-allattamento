@@ -14,10 +14,7 @@ DB_HOST_NAME=os.getenv("DB_HOST_NAME")
 DB_PORT=os.getenv("DB_PORT")
 
 # Create DB URL
-DB_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST_NAME}:{DB_PORT}/{DB_NAME}"
-
-# Access environment variables
-DB_URL=os.getenv("DB_URL")
+DB_URL = f"mysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST_NAME}:{DB_PORT}/{DB_NAME}"
 
 # Create SQLAlchemy engine and session
 engine = create_engine(DB_URL)
