@@ -3,103 +3,108 @@ from sqlalchemy.orm import Session
 from models import BreastfeedingSession
 from database import get_db, engine, Base
 from fastapi.responses import JSONResponse
+import pytz
 from datetime import datetime
 import logging
+from ask_sdk_core.skill_builder import SkillBuilder
+from ask_sdk_core.dispatch_components import AbstractRequestHandler
+from ask_sdk_core.utils import is_request_type, is_intent_name
+from ask_sdk_model import Response
+import json
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(root_path="/alexa/breastfeeding")
 
-@app.post("/")
-async def alexa_webhook(request: Request):
-    body = await request.json()
-    logging.info(f"Request Body: {body}")
-    
-    # Process the request, log data, etc.
-    
-    # Return a valid Alexa response
-    return {
-        "version": "1.0",
-        "sessionAttributes": {},
-        "response": {
-            "outputSpeech": {
-                "type": "PlainText",
-                "text": "Breastfeeding log saved!",
-                "playBehavior": "REPLACE_ENQUEUED"
-            },
-            "card": {
-                "type": "Standard",
-                "title": "Breastfeeding Log",
-                "text": "Your breastfeeding session has been logged.",
-            },
-            "reprompt": {
-                "outputSpeech": {
-                    "type": "PlainText",
-                    "text": "Would you like to add another log?",
-                    "playBehavior": "REPLACE_ENQUEUED"
-                }
-            },
-            "directives": [],
-            "shouldEndSession": True
-        }
-    }
+# Setup logging
+logging.basicConfig(level=logging.INFO)
 
-@app.post("/alexa/log_breastfeeding")
-async def log_breastfeeding(request: Request, db: Session = Depends(get_db)):
-    try:
-        # Get JSON data from the request
-        data = await request.json()
+sb = SkillBuilder()
 
-        # Simulate extracting UserID from Alexa event (in production, extract it from Alexa context)
-        user_id = "example-user-id"
+class LaunchRequestHandler(AbstractRequestHandler):
+    def can_handle(self, handler_input):
+        return is_request_type("LaunchRequest")(handler_input)
+
+    def handle(self, handler_input):
+        speech_text = "Benvenuta nel tuo diario di allattamento. Puoi chiedermi di registrare una sessione di allattamento o di recuperare l'ultima sessione registrata. Cosa vuoi fare?"
+        return handler_input.response_builder.speak(speech_text).set_should_end_session(False).response
+
+class RetrieveBreastfeedingIntent(AbstractRequestHandler):
+    def can_handle(self, handler_input):
+        return is_intent_name("RetrieveBreastfeedingIntent")(handler_input)
+
+    def handle(self, handler_input):
+        # Access the database
+        db = next(get_db())
+        user_id = handler_input.request_envelope.session.user.user_id
+
+        # Retrieve the last breastfeeding session
+        sessions = db.query(BreastfeedingSession).filter_by(UserID=user_id).order_by(BreastfeedingSession.Timestamp.desc()).limit(1).all()
         
-        # Extract and validate required fields from the JSON
-        timestamp = data.get("Timestamp")
-        breast = data.get("Breast")
-
-        if not timestamp or not breast:
-            raise HTTPException(status_code=400, detail="Missing required fields 'Timestamp' or 'Breast'")
-
-        # Convert timestamp to a datetime object
-        try:
-            timestamp = datetime.fromisoformat(timestamp)
-        except ValueError:
-            raise HTTPException(status_code=400, detail="Invalid timestamp format")
+        if len(sessions) == 0:
+            speech_text = "Nessuna sessione di allattamento registrata."
+        else:
+            session = sessions[0]
+            speech_text = f"L'ultimo allattamento è stato a {session.Breast}, alle {session.Timestamp.strftime('%H:%M')}."
         
-        # Insert the breastfeeding data into the database
-        session = BreastfeedingSession(
+        return handler_input.response_builder.speak(speech_text).set_should_end_session(True).response
+
+class LogBreastfeedingIntentHandler(AbstractRequestHandler):
+    def can_handle(self, handler_input):
+        return is_intent_name("LogBreastfeedingIntent")(handler_input)
+
+    def handle(self, handler_input):
+        # Extract slots and process the request
+        slots = handler_input.request_envelope.request.intent.slots
+        timestamp = handler_input.request_envelope.request.timestamp
+        breast = slots["Breast"].value
+
+        # Log the data
+        logging.info(f"Timestamp: {timestamp}, Breast: {breast}")
+
+        # Convert UTC timestamp to local timezone
+        local_tz = pytz.timezone("Europe/Rome")  # Replace with your local timezone
+        local_time = timestamp.astimezone(local_tz)
+        
+        logging.info(f"Local time: {local_time}")
+
+        # Access the database
+        db = next(get_db())
+        user_id = handler_input.request_envelope.session.user.user_id
+
+        # Create a new breastfeeding session
+        new_session = BreastfeedingSession(
             UserID=user_id,
-            Timestamp=timestamp,
+            Timestamp=local_time,  # Use the local time
             Breast=breast
         )
 
-        db.add(session)
+        # Add the session to the database
+        db.add(new_session)
         db.commit()
-        db.refresh(session)
+        db.refresh(new_session)
 
-        return JSONResponse(content={
-            "UserID": user_id,
-            "Breast": session.Breast,
-            "Timestamp": session.Timestamp.isoformat()
-        })
-    
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
+        # Return a valid Alexa response
+        speech_text = "Fatto."
+        return handler_input.response_builder.speak(speech_text).set_should_end_session(True).response
+
+class SessionEndedRequestHandler(AbstractRequestHandler):
+    def can_handle(self, handler_input):
+        return is_request_type("SessionEndedRequest")(handler_input)
+
+    def handle(self, handler_input):
+        return handler_input.response_builder.response
+
+sb.add_request_handler(LaunchRequestHandler())
+sb.add_request_handler(RetrieveBreastfeedingIntent())
+sb.add_request_handler(LogBreastfeedingIntentHandler())
+sb.add_request_handler(SessionEndedRequestHandler())
 
 
-@app.get("/alexa/last_feeding")
-async def get_last_feeding(db: Session = Depends(get_db)):
-    user_id = "example-user-id"
-    
-    # Query the last breastfeeding session for the user
-    session = db.query(BreastfeedingSession).filter(BreastfeedingSession.UserID == user_id).order_by(
-        BreastfeedingSession.Timestamp.desc()).first()
-    
-    if session is None:
-        raise HTTPException(status_code=404, detail="No breastfeeding sessions found")
+lambda_handler = sb.lambda_handler()
 
-    return JSONResponse(content={
-        "UserID": session.UserID,
-        "Breast": session.Breast,
-        "Timestamp": session.Timestamp.isoformat()
-    })
+@app.post("/")
+async def alexa_webhook(request: Request):
+    body = await request.body()
+    response = lambda_handler(json.loads(body), None)
+    return JSONResponse(content=response)
