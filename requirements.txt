@@ -7,3 +7,5 @@ pymysql
 alembic
 pydantic
 python-dotenv
+ask-sdk
+pytz
