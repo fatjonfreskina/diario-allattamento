@@ -1,4 +1,4 @@
-# breastfeeding-alexa
+# Diario Allattamento
 
 A FastAPI application that serves as the backend for an Alexa skill that helps breastfeeding mothers track their feeding sessions.
 
