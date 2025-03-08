@@ -57,7 +57,7 @@ class LogBreastfeedingIntentHandler(AbstractRequestHandler):
         # Extract slots and process the request
         slots = handler_input.request_envelope.request.intent.slots
         timestamp = handler_input.request_envelope.request.timestamp
-        breast = slots["Breast"].value
+        breast = slots["Side"].value
 
         # Log the data
         logging.info(f"Timestamp: {timestamp}, Breast: {breast}")
