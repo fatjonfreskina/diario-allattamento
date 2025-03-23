@@ -1,6 +1,21 @@
 # Diario allattamento
 
-A FastAPI application that serves as the backend for an Alexa skill that helps breastfeeding mothers track their feeding sessions.
+![GitHub Workflow Status](https://github.com/fatjonfreskina/diario-allattamento/actions/workflows/docker_push.yaml/badge.svg)
+
+---
+
+<table>
+  <tr>
+    <td>
+      <p>
+        A FastAPI application that serves as the backend for an Alexa skill that helps breastfeeding mothers track their feeding sessions.
+      </p>
+    </td>
+    <td>
+      <img src="media/logo.jpg" alt="drawing" width="200" style="border-radius: 50%; border: 2px solid #000; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);"/>
+    </td>
+  </tr>
+</table>
 
 ## Table of Contents
 
