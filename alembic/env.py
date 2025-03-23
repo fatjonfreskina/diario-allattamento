@@ -11,8 +11,6 @@ config = context.config
 section = config.config_ini_section
 
 config.set_section_option(section, "DB_USER", os.getenv("DB_USER"))
-# print(os.getenv("DB_PASS"), os.getenv("DB_HOST"), os.getenv("DB_PORT"), os.getenv("DB_NAME"))
-breakpoint()
 db_pass_escaped = os.getenv("DB_PASS").replace("%", "%%")
 config.set_section_option(section, "DB_PASS", db_pass_escaped)
 config.set_section_option(section, "HOST_NAME", os.getenv("HOST_NAME"))
