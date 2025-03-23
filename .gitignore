@@ -3,5 +3,5 @@ venv/
 /src/__pycache__
 alembic/env.ps1
 /alembic/versions/__pycache__
-alembic/env.bat
 alembic/__pycache__/
+*.bat
