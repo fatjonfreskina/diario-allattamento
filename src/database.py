@@ -8,13 +8,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DB_USER=os.getenv("DB_USER")
-DB_PASSWORD=os.getenv("DB_PASSWORD")
+DB_PASS=os.getenv("DB_PASS")
+HOST_NAME=os.getenv("HOST_NAME")
+HOST_PORT=os.getenv("HOST_PORT")
 DB_NAME=os.getenv("DB_NAME")
-DB_HOST_NAME=os.getenv("DB_HOST_NAME")
-DB_PORT=os.getenv("DB_PORT")
 
 # Create DB URL
-DB_URL = f"mysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST_NAME}:{DB_PORT}/{DB_NAME}"
+DB_URL = f"mysql://{DB_USER}:{DB_PASS}@{HOST_NAME}:{HOST_PORT}/{DB_NAME}"
 
 # Create SQLAlchemy engine and session
 engine = create_engine(DB_URL)

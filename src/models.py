@@ -8,4 +8,4 @@ class BreastfeedingSession(Base):
     SessionID = Column(Integer, primary_key=True, index=True)
     UserID = Column(String(255), index=True)
     Timestamp = Column(DateTime)
-    Breast = Column(String(10))
+    BreastSide = Column(String(10))
