@@ -1,6 +1,19 @@
-# Diario Allattamento
+# Diario allattamento
 
 A FastAPI application that serves as the backend for an Alexa skill that helps breastfeeding mothers track their feeding sessions.
+
+## Table of Contents
+
+- [Diario allattamento](#diario-allattamento)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Setup](#setup)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+    - [Exposing Your Local Server with ngrok](#exposing-your-local-server-with-ngrok)
+    - [Running Migrations](#running-migrations)
+    - [Testing](#testing)
+  - [Contributing](#contributing)
 
 ## Features
 
@@ -14,6 +27,7 @@ A FastAPI application that serves as the backend for an Alexa skill that helps b
 - MySQL
 - Python 3.8
 - ngrok (for exposing your local server)
+- Alexa Developer Console account
 
 ### Installation
 
@@ -30,14 +44,14 @@ A FastAPI application that serves as the backend for an Alexa skill that helps b
     pip install -r requirements.txt
     ```
 
-3. Create a [.env](http://_vscodecontentref_/1) file with your database credentials:
+3. Create a `.env` file with your database credentials:
 
     ```plaintext
     DB_USER=your_db_user
-    DB_PASSWORD=your_db_password
+    DB_PASS=your_db_password
+    HOST_NAME=your_db_host
+    HOST_PORT=your_db_port
     DB_NAME=your_db_name
-    DB_HOST_NAME=your_db_host
-    DB_PORT=your_db_port
     ```
 
 4. Run main script:
@@ -67,9 +81,9 @@ A FastAPI application that serves as the backend for an Alexa skill that helps b
     ```sh
     set DB_USER=your_db_user
     set DB_PASS=your_db_password
-    set DB_NAME=your_db_name
     set HOST_NAME=your_db_host
     set HOST_PORT=your_db_port
+    set DB_NAME=your_db_name
     ```
 
 2. Run the migrations:
@@ -81,3 +95,13 @@ A FastAPI application that serves as the backend for an Alexa skill that helps b
 ### Testing
 
 You can now test your Alexa skill using the Alexa Developer Console. Make sure your local server is running and exposed via ngrok.
+
+On the Alexa Developer Console, you can test your skill by invoking it with the following utterances:
+
+- "Alexa, apri Diario allattamento"
+- "Alexa, aggiungi allattamento a destra"
+- "Alexa, quando è stato l'ultimo allattamento?"
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
