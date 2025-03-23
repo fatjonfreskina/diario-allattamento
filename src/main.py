@@ -22,7 +22,7 @@ from database import get_db, engine, Base
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(root_path="/")
+app = FastAPI(root_path="/alexa/breastfeeding")
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
