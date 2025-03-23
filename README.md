@@ -87,7 +87,7 @@
 
 3. Copy the HTTPS URL provided by ngrok (e.g., `https://abcd1234.ngrok.io`).
 
-4. In the Alexa Developer Console, set the endpoint for your skill to the ngrok URL followed by `/alexa/breastfeeding` (e.g., `https://abcd1234.ngrok.io/alexa/breastfeeding`).
+4. In the Alexa Developer Console, set the endpoint for your skill to the ngrok URL (e.g., `https://abcd.ngrok-free.app`).
 
 ### Running Migrations
 
