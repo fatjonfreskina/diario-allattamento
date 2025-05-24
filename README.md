@@ -22,6 +22,7 @@
 - [Diario allattamento](#diario-allattamento)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
+  - [Roadmap](#roadmap)
   - [Setup](#setup)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
@@ -34,6 +35,14 @@
 
 - **Add Feeding Session**: Allows users to add a new feeding session.
 - **Get Feeding Sessions**: Allows users to get a list of all feeding sessions.
+
+## Roadmap
+
+- [ ] Add support for multiple children.
+- [ ] Add support for breastfeeding duration.
+- [ ] Add statistics and analytics features.
+- [ ] Add support for reminders and notifications.
+- [ ] Add support for different feeding types (bottle, breast, etc.).
 
 ## Setup
 
