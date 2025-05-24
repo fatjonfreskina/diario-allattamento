@@ -1,39 +1,39 @@
-# Privacy Policy
+# Informativa sulla Privacy
 
-The **Diario allattamento** application is designed to respect and protect your personal data. Below is an outline of how we handle your information:
+L'applicazione **Diario allattamento** è progettata per rispettare e proteggere i tuoi dati personali. Di seguito viene illustrato come gestiamo le tue informazioni:
 
-## Data Collection
+## Raccolta dei Dati
 
-- The application collects breastfeeding session details (e.g., timestamp, breast side) to provide personalized responses and track your feeding history.
-- If permissions are granted, the application may also collect your device's location to enhance functionality (e.g., timezone adjustments).
+- L'applicazione raccoglie dettagli sulle sessioni di allattamento (ad esempio, data e ora, lato del seno) per fornire risposte personalizzate e tracciare la cronologia delle poppate.
+- Se vengono concessi i permessi, l'applicazione può anche raccogliere la posizione del dispositivo per migliorare le funzionalità (ad esempio, regolazione del fuso orario).
 
-## Data Usage
+## Utilizzo dei Dati
 
-- The collected data is used exclusively to provide the core functionality of the Alexa skill, such as logging and retrieving breastfeeding sessions.
-- Location data is used to adjust timestamps to your local timezone.
+- I dati raccolti vengono utilizzati esclusivamente per fornire le funzionalità principali della skill Alexa, come la registrazione e il recupero delle sessioni di allattamento.
+- I dati sulla posizione vengono utilizzati per regolare le date e gli orari in base al tuo fuso orario locale.
 
-## Data Storage
+## Conservazione dei Dati
 
-- All data is securely stored in a MySQL database hosted on a protected server.
-- Data will never be shared with third parties or used for advertising purposes.
+- Tutti i dati sono archiviati in modo sicuro in un database MySQL ospitato su un server protetto.
+- I dati non saranno mai condivisi con terze parti né utilizzati per scopi pubblicitari.
 
-## Permissions
+## Permessi
 
-- The application may request the following permissions:
-  - **Location Access**: To adjust timestamps based on your timezone.
-  - **Device Address Access**: To provide location-based features if required.
-- Permissions can be managed through the Alexa app.
+- L'applicazione può richiedere i seguenti permessi:
+  - **Accesso alla posizione**: per regolare le date e gli orari in base al tuo fuso orario.
+  - **Accesso all'indirizzo del dispositivo**: per fornire funzionalità basate sulla posizione, se necessario.
+- I permessi possono essere gestiti tramite l'app Alexa.
 
-## User Control
+## Controllo dell'Utente
 
-- You have full control over your data. You can delete your breastfeeding session records by contacting support or using the skill's built-in commands (if available).
+- Hai il pieno controllo sui tuoi dati. Puoi eliminare i tuoi record delle sessioni di allattamento contattando il supporto o utilizzando i comandi integrati della skill (se disponibili).
 
-## Third-Party Services
+## Servizi di Terze Parti
 
-- The application does not share your data with any third-party services. All processing is done securely within the application.
+- L'applicazione non condivide i tuoi dati con servizi di terze parti. Tutto il trattamento avviene in modo sicuro all'interno dell'applicazione.
 
-## Contact Us
+## Contattaci
 
-If you have any questions or concerns about your privacy, feel free to [contact me](mailto:fatjonfreskina@gmail.com)
+Se hai domande o dubbi riguardo la tua privacy, non esitare a [contattarmi](mailto:fatjonfreskina@gmail.com)
 
-By using the **Diario allattamento** application, you agree to this privacy policy.
+Utilizzando l'applicazione **Diario allattamento**, accetti questa informativa sulla privacy.
